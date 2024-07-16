@@ -1,4 +1,4 @@
-```markdown
+
 此项目是根据youtube的react.js教学（网址：https://www.youtube.com/watch?v=UKdQjQX1Pko）所完成的代码。
 在其基础上有以下修改：
 - 原代码逻辑是：如果 filteredPlaces 数组为空，它会回退到显示 places 数组中的所有项目。
