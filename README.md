@@ -1,7 +1,8 @@
 ```markdown
 此项目是根据youtube的react.js教学（网址：https://www.youtube.com/watch?v=UKdQjQX1Pko）所完成的代码。
 在其基础上有以下修改：
-- 原代码逻辑是：如果 filteredPlaces 数组为空，它会回退到显示 places 数组中的所有项目。为了确保在没有满足阙值的 place 时显示空白，调整了逻辑，使其仅在 filteredPlaces 不为空时显示内容。
+- 原代码逻辑是：如果 filteredPlaces 数组为空，它会回退到显示 places 数组中的所有项目。
+  为了确保在没有满足阙值的 place 时显示空白，调整了逻辑，使其仅在 filteredPlaces 不为空时显示内容。
 - 当改变 type 时，满足条件的项目会立即渲染，而不需要再次改变 rating 来触发渲染。
 
 
