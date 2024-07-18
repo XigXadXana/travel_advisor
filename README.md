@@ -5,6 +5,17 @@
   为了确保在没有满足阙值的 place 时显示空白，调整了逻辑，使其仅在 filteredPlaces 不为空时显示内容。
 - 当改变 type 时，满足条件的项目会立即渲染，而不需要再次改变 rating 来触发渲染。
 
+# 对于google maps api keys的更新
+1. **修改 `public/index.html` 文件：**
+   - 删除或注释掉现有的 Google Maps API `<script>` 标签。
+
+2. **创建并使用 `GoogleMapsLoader.js` 组件：**
+   - 创建一个新的组件 `GoogleMapsLoader.js` 并在其中动态加载 Google Maps API 脚本。
+   - 确保在加载成功后执行所需的回调函数。
+
+3. **在 `App.js` 中使用 `GoogleMapsLoader` 组件：**
+   - 确保在应用初始化时使用该组件加载 Google Maps API。
+   - 使用回调函数处理加载完成后的逻辑。
 
 # Travel Advisor
 
@@ -41,6 +52,7 @@ travel-advisor/
 │   │   └── ...
 │   ├── App.js
 │   ├── index.js
+│   ├── GoogleMapsLoader.js
 │   └── ...
 ├── package.json
 └── README.md

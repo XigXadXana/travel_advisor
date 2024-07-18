@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
-
+import GoogleMapsLoader  from "./components/GoogleMapsLoader";
 import { getPlacesData, getWeatherData } from "./api";
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
@@ -16,6 +16,10 @@ const App = () => {
   const [type, setType] = useState("");
   const [rating, setRating] = useState("");
   const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const handleGoogleMapsLoad = () => {
+    console.log('Google Maps API loaded');
+    // 这里可以初始化地图或其他逻辑
+  };
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
@@ -60,31 +64,34 @@ const App = () => {
   console.log("Filtered Places:", filteredPlaces);
   return (
     <>
+      <GoogleMapsLoader onLoad={handleGoogleMapsLoad} />
       <CssBaseline />
       <Header setCoordinates={setCoordinates} />
-      <Grid container spacing={3} style={{ width: "100%" }}>
-        <Grid item xs={12} md={4}>
-          <List
-            places={filteredPlaces.length ? filteredPlaces : []}
-            childClicked={childClicked}
-            isLoading={isLoading}
-            type={type}
-            setType={setType}
-            rating={rating}
-            setRating={setRating}
-          />
+      <div id="root">
+        <Grid  container spacing={3} style={{ width: "100%" }}>
+          <Grid item xs={12} md={4}>
+            <List
+              places={filteredPlaces.length ? filteredPlaces : []}
+              childClicked={childClicked}
+              isLoading={isLoading}
+              type={type}
+              setType={setType}
+              rating={rating}
+              setRating={setRating}
+            />
+          </Grid>
+          <Grid item xs={12} md={8}>
+            <Map
+              setCoordinates={setCoordinates}
+              setBounds={setBounds}
+              coordinates={coordinates}
+              places={filteredPlaces.length ? filteredPlaces : []}
+              setChildclicked={setChildclicked}
+              weatherData={weatherData}
+            />
+          </Grid>
         </Grid>
-        <Grid item xs={12} md={8}>
-          <Map
-            setCoordinates={setCoordinates}
-            setBounds={setBounds}
-            coordinates={coordinates}
-            places={filteredPlaces.length ? filteredPlaces : []}
-            setChildclicked={setChildclicked}
-            weatherData={weatherData}
-          />
-        </Grid>
-      </Grid>
+      </div>
     </>
   );
 };
