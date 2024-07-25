@@ -1,11 +1,16 @@
 
-此项目是根据youtube的react.js教学（网址：https://www.youtube.com/watch?v=UKdQjQX1Pko）所完成的代码。
+此项目是根据youtube的react.js教学（网址：https://www.youtube.com/watch?v=UKdQjQX1Pko） 所完成的代码。
 在其基础上有以下修改：
 - 原代码逻辑是：如果 filteredPlaces 数组为空，它会回退到显示 places 数组中的所有项目。
   为了确保在没有满足阙值的 place 时显示空白，调整了逻辑，使其仅在 filteredPlaces 不为空时显示内容。
 - 当改变 type 时，满足条件的项目会立即渲染，而不需要再次改变 rating 来触发渲染。
 
-# 对于google maps api keys的更新
+### 新增功能：导航按钮
+
+在 `List` 组件中，为每个 `PlaceDetails` 子组件增加了一个导航按钮。点击导航按钮后，会在新页面中打开 Google Maps 
+并显示从当前位置到所选地点的导航路线。
+
+## 对于google maps api keys的更新
 1. **修改 `public/index.html` 文件：**
    - 删除或注释掉现有的 Google Maps API `<script>` 标签。
 
@@ -27,7 +32,7 @@ Travel Advisor 是一个互动的旅游推荐平台，帮助用户搜索和发�
 - 根据评分和类型筛选地点
 - 查看详细的地点信息，包括图片和评分
 - 自动根据用户当前位置更新地图
-- 计算任意点到选定地点的路线规划和耗时（待实现）
+- ~~计算任意点到选定地点的路线规划和耗时（待实现）~~ 待完善
 
 ## 目录结构
 
