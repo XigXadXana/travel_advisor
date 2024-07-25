@@ -10,7 +10,7 @@
 在 `List` 组件中，为每个 `PlaceDetails` 子组件增加了一个导航按钮。点击导航按钮后，会在新页面中打开 Google Maps 
 并显示从当前位置到所选地点的导航路线。
 
-# 对于google maps api keys的更新
+## 对于google maps api keys的更新
 1. **修改 `public/index.html` 文件：**
    - 删除或注释掉现有的 Google Maps API `<script>` 标签。
 
