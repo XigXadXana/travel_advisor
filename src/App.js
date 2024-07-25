@@ -21,6 +21,12 @@ const App = () => {
     // 这里可以初始化地图或其他逻辑
   };
 
+  const handleNavigate = (place) => {
+    const destination = `${place.latitude},${place.longitude}`;
+    const origin = `${coordinates.lat},${coordinates.lng}`;
+    window.open(`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`);
+  };
+
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude, longitude } }) => {
@@ -78,6 +84,7 @@ const App = () => {
               setType={setType}
               rating={rating}
               setRating={setRating}
+              onNavigate={handleNavigate}
             />
           </Grid>
           <Grid item xs={12} md={8}>

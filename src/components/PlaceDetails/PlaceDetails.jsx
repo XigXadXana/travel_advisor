@@ -15,8 +15,14 @@ import Rating from "@material-ui/lab/Rating";
 
 import useStyles from "./styles";
 
-const PlaceDetails = ({ place, selected, refProp }) => {
+const PlaceDetails = ({ place, selected, refProp, onNavigate}) => {
   const classes = useStyles();
+  const handleNavigate = () => {
+    if (onNavigate) {
+      onNavigate(place);
+    }
+  };
+  
   if (selected) {
     refProp?.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   }
@@ -56,7 +62,7 @@ const PlaceDetails = ({ place, selected, refProp }) => {
         </Box>
 
         {place?.awards?.map((award) => (
-          <Box my={1} display="flex" justifyContent="space-between">
+          <Box key={award.display_name} my={1} display="flex" justifyContent="space-between">
             <img src={award.images.small} alt={award.display_name} />
             <Typography variant="subtitle2" color="textSecondary">
               {award.display_name}
@@ -92,9 +98,9 @@ const PlaceDetails = ({ place, selected, refProp }) => {
           <Button
             size="small"
             color="primary"
-            onClick={() => window.open(place.web_url, "_blank")}
+            onClick={handleNavigate}
           >
-            Trip Advisor
+            Navigate
           </Button>
           <Button
             size="small"

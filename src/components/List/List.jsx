@@ -19,6 +19,7 @@ const List = ({
   setType,
   rating,
   setRating,
+  onNavigate
 }) => {
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
@@ -74,6 +75,7 @@ const List = ({
                     place={place}
                     selected={Number(childClicked) === i}
                     refProp={elRefs[i]}
+                    onNavigate={onNavigate}
                   />
                 </Grid>
               ))}
