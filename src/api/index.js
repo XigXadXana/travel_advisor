@@ -40,7 +40,7 @@ export const getPlacesData = async (type, sw, ne) => {
 //         },
 //         headers: {
 //           "x-rapidapi-key":
-//             "c58694fe87mshe8399187f9317f2p17fc49jsn81ebdfb514b0",
+//             process.env.REACT_APP_RAPIDAPI_TRAVEL_API_KEY,
 //           "x-rapidapi-host": "yahoo-weather5.p.rapidapi.com",
 //         },
 //       }
