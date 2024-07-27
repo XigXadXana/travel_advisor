@@ -18,8 +18,11 @@ import useStyles from "./styles";
 const PlaceDetails = ({ place, selected, refProp, onNavigate}) => {
   const classes = useStyles();
   const handleNavigate = () => {
-    if (onNavigate) {
+    if (place && onNavigate) {
       onNavigate(place);
+    }
+    else {
+      console.error('Missing place object or onNavigate function.');
     }
   };
   
@@ -69,7 +72,7 @@ const PlaceDetails = ({ place, selected, refProp, onNavigate}) => {
             </Typography>
           </Box>
         ))}
-        {place?.cuisine?.map(({ name }) => (
+        {place?.cuisine?.map(({name}) => (
           <Chip key={name} size="small" label={name} className={classes.chip} />
         ))}
         {place?.address && (
@@ -98,7 +101,7 @@ const PlaceDetails = ({ place, selected, refProp, onNavigate}) => {
           <Button
             size="small"
             color="primary"
-            onClick={handleNavigate}
+            onClick={place? handleNavigate : undefined}
           >
             Navigate
           </Button>

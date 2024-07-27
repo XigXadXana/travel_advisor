@@ -5,7 +5,7 @@ import SearchIcon from "@material-ui/icons/Search";
 
 import useStyles from "./styles";
 
-const Header = ({ setCoordinates }) => {
+const Header = ({ setCoordinates, googleMapsLoaded }) => {
   const classes = useStyles();
   const [autocomplete, setAutocomplete] = useState(null);
   const onLoad = (autoC) => setAutocomplete(autoC);
@@ -30,17 +30,22 @@ const Header = ({ setCoordinates }) => {
           <Typography variant="h6" className={classes.title}>
             Explore new places
           </Typography>
-          <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
+          {googleMapsLoaded && (
+            <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder="Search..."
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                />
               </div>
-              <InputBase
-                placeholder="Search..."
-                classes={{ root: classes.inputRoot, input: classes.inputInput }}
-              />
-            </div>
-          </Autocomplete>
+            </Autocomplete>
+          )}
         </Box>
       </Toolbar>
     </AppBar>

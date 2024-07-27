@@ -25,8 +25,7 @@ const List = ({
   const [elRefs, setElRefs] = useState([]);
 
   // console.log("Rendering List Component");
-  console.log("Places passed to List:", places);
-
+  // console.log("Places passed to List:", places);
   useEffect(() => {
     setElRefs((refs) =>
       Array(places?.length)
