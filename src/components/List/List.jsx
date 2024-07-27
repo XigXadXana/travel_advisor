@@ -19,13 +19,13 @@ const List = ({
   setType,
   rating,
   setRating,
+  onNavigate
 }) => {
   const classes = useStyles();
   const [elRefs, setElRefs] = useState([]);
 
   // console.log("Rendering List Component");
-  console.log("Places passed to List:", places);
-
+  // console.log("Places passed to List:", places);
   useEffect(() => {
     setElRefs((refs) =>
       Array(places?.length)
@@ -74,6 +74,7 @@ const List = ({
                     place={place}
                     selected={Number(childClicked) === i}
                     refProp={elRefs[i]}
+                    onNavigate={onNavigate}
                   />
                 </Grid>
               ))}

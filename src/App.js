@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
-import GoogleMapsLoader  from "./components/GoogleMapsLoader";
+import GoogleMapsLoader from "./components/GoogleMapsLoader";
 import { getPlacesData, getWeatherData } from "./api";
 import Header from "./components/Header/Header";
 import List from "./components/List/List";
@@ -11,14 +11,33 @@ const App = () => {
   const [weatherData, setWeatherData] = useState([]);
   const [coordinates, setCoordinates] = useState({});
   const [bounds, setBounds] = useState({});
-  const [childClicked, setChildclicked] = useState(null);
+  const [childClicked, setChildClicked] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [type, setType] = useState("");
   const [rating, setRating] = useState("");
   const [filteredPlaces, setFilteredPlaces] = useState([]);
+  const [googleMapsLoaded, setGoogleMapsLoaded] = useState(false);
+
+
+
   const handleGoogleMapsLoad = () => {
-    console.log('Google Maps API loaded');
-    // 这里可以初始化地图或其他逻辑
+    setGoogleMapsLoaded(true);
+  };
+
+  useEffect(() => {
+    if (googleMapsLoaded) {
+      console.log('Google Maps API loaded', googleMapsLoaded);
+    }
+  }, [googleMapsLoaded]);
+
+  const handleNavigate = (place) => {
+    if (place) {
+      const destination = `${place.latitude},${place.longitude}`;
+      const origin = `${coordinates.lat},${coordinates.lng}`;
+      window.open(`https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${destination}&travelmode=walking`);
+    } else {
+      console.error('Cannot navigate: Invalid place object or missing coordinates.');
+    }
   };
 
   useEffect(() => {
@@ -29,11 +48,8 @@ const App = () => {
     );
   }, []);
 
-
-  // 新的 useEffect，合并 type 依赖
   useEffect(() => {
     if (places.length) {
-      //console.log("Current rating threshold:", rating);
       const filtered = places.filter((place) => Number(place.rating) > rating);
       setFilteredPlaces(filtered);
     }
@@ -42,9 +58,6 @@ const App = () => {
   useEffect(() => {
     if (bounds.sw && bounds.ne) {
       setIsLoading(true);
-      // getWeatherData(coordinates.lat, coordinates.lng).then((data) =>
-      //   setWeatherData(data)
-      // );
 
       getPlacesData(type, bounds.sw, bounds.ne).then((data) => {
         if (data) {
@@ -60,15 +73,13 @@ const App = () => {
     }
   }, [type, bounds, coordinates]);
 
-  console.log("Places:", places);
-  console.log("Filtered Places:", filteredPlaces);
   return (
     <>
       <GoogleMapsLoader onLoad={handleGoogleMapsLoad} />
       <CssBaseline />
-      <Header setCoordinates={setCoordinates} />
+      <Header setCoordinates={setCoordinates} googleMapsLoaded={googleMapsLoaded} />
       <div id="root">
-        <Grid  container spacing={3} style={{ width: "100%" }}>
+        <Grid container spacing={3} style={{ width: "100%" }}>
           <Grid item xs={12} md={4}>
             <List
               places={filteredPlaces.length ? filteredPlaces : []}
@@ -78,6 +89,7 @@ const App = () => {
               setType={setType}
               rating={rating}
               setRating={setRating}
+              onNavigate={filteredPlaces.length ? handleNavigate : undefined}
             />
           </Grid>
           <Grid item xs={12} md={8}>
@@ -86,8 +98,9 @@ const App = () => {
               setBounds={setBounds}
               coordinates={coordinates}
               places={filteredPlaces.length ? filteredPlaces : []}
-              setChildclicked={setChildclicked}
+              setChildClicked={setChildClicked}
               weatherData={weatherData}
+              googleMapsLoaded={googleMapsLoaded}
             />
           </Grid>
         </Grid>
